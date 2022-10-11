@@ -5,7 +5,9 @@
 .page-container {
   background-color: rgb(96, 207, 255);
   padding: 16px;
+  min-height: 100vh;
 }
+
 .page-content {
   background-color: #fff;
   border-radius: 4px;
@@ -18,6 +20,6 @@
   text-align: center;
   margin: 16px 0;
 }
-i{
+i {
   font-style: normal;
 }
