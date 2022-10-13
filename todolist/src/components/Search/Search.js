@@ -4,6 +4,7 @@ export default function Search(props) {
   const onKeyChange = (e) => {
     props.onSearchKeyChange(e.target.value);
   };
+  
   const onClearSearch = () => {
     props.onClearSearch();
   };

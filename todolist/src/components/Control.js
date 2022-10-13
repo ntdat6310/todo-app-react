@@ -4,15 +4,17 @@ import Filter from "./Filter/Filter";
 import Order from "./Order/Order";
 import Search from "./Search/Search";
 
-export default function Control() {
+export default function Control(props) {
   const [searchKey, setSearchKey] = useState("");
 
   const handleSearch = (key) => {
     setSearchKey(key);
+    props.onSearchChange(key);
   };
 
   const handleClearSearch = () => {
     setSearchKey("");
+    props.onSearchChange("");
   };
 
   return (

@@ -1,18 +1,14 @@
 import React from "react";
 import Item from "./Item";
-import taskList from "../assets/mock/mockData";
 
-export default function Table() {
+export default function Table(props) {
   const renderTasks = function () {
-    return taskList.map((item, index) => {
+    return props.taskList.map((item, index) => {
       return (
         <Item
           key={index}
-          idx={index}
-          taskName={item.task}
-          level={item.level}
-          state={item.state}
-          deadline={item.deadline}
+          task={item}
+          onStateChange={props.onStateChange}
         />
       );
     });
