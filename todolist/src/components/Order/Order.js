@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Sort() {
+export default function Order() {
   return (
     <div className="btn-group me-2">
       <button
@@ -10,7 +10,7 @@ export default function Sort() {
         data-bs-auto-close={true}
         aria-expanded={false}
       >
-        Sort by
+        Order by
       </button>
       <ul className="dropdown-menu">
         <li>
@@ -21,6 +21,17 @@ export default function Sort() {
         <li>
           <a className="dropdown-item" href="#">
             <i className="fa-thin fa-arrow-down" /> Task
+          </a>
+        </li>
+        <hr />
+        <li>
+          <a className="dropdown-item" href="#">
+            <i className="fa-thin fa-arrow-up" /> Deadline
+          </a>
+        </li>
+        <li>
+          <a className="dropdown-item" href="#">
+            <i className="fa-thin fa-arrow-down" /> Deadline
           </a>
         </li>
       </ul>

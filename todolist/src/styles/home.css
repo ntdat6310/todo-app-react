@@ -1,0 +1,7 @@
+/* MODAL */
+.modalAdd__close i {
+  opacity: 0.5;
+}
+.modalAdd__close:hover i {
+  opacity: 1;
+}

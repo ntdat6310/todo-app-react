@@ -12,6 +12,7 @@ export default function Table() {
           taskName={item.task}
           level={item.level}
           state={item.state}
+          deadline={item.deadline}
         />
       );
     });
@@ -27,15 +28,17 @@ export default function Table() {
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col" style={{ width: "5%" }}>
-                      #
-                    </th>
                     <th scope="col">Task</th>
-                    <th scope="col" style={{ width: "10%" }}>State</th>
+                    <th scope="col" style={{ width: "15%" }}>
+                      Deadline
+                    </th>
+                    <th scope="col" style={{ width: "10%" }}>
+                      State
+                    </th>
                     <th scope="col" style={{ width: "10%" }}>
                       Level
                     </th>
-                    <th scope="col" style={{ width: "20%" }}>
+                    <th scope="col" style={{ width: "10%" }}>
                       Action
                     </th>
                   </tr>
