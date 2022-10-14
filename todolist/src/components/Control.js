@@ -5,15 +5,11 @@ import Order from "./Order/Order";
 import Search from "./Search/Search";
 
 export default function Control(props) {
-  const [searchKey, setSearchKey] = useState("");
-
   const handleSearch = (key) => {
-    setSearchKey(key);
     props.onSearchChange(key);
   };
 
   const handleClearSearch = () => {
-    setSearchKey("");
     props.onSearchChange("");
   };
 
@@ -22,13 +18,13 @@ export default function Control(props) {
       <div className="row">
         <div className="col-6">
           <Search
-            searchKey={searchKey}
+            searchKey={props.searchKey}
             onSearchKeyChange={handleSearch}
             onClearSearch={handleClearSearch}
           />
         </div>
         <div className="col-3">
-          <Order />
+          <Order onOrderChange={props.onOrderChange} order={props.order} />
           <Filter />
         </div>
         <div className="col-3">

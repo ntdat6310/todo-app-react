@@ -4,20 +4,41 @@ import Table from "../components/Table";
 import taskList from "../assets/mock/mockData";
 import "../styles/home.css";
 import { useState } from "react";
+import { getHandledTasks } from "../utils/task";
 
 function Home() {
   const [tasks, setTasks] = useState(taskList);
-  console.log("Home Render");
-  const handleSearch = (searchKey) => {
-    const reg = new RegExp(searchKey, "i");
-    const newTasks = taskList.filter((task) => {
-      // Why not using : return task.task.includes(searchKey) ?
-      // Because it's not ignore case-insensitive
-      // => Using Regular Expression, but: /variable/i is not working
-      // If you wanna use Regular Expression with variable => using Contructor
-      return task.task.search(reg) >= 0;
-    });
-    setTasks(newTasks);
+  const [searchKey, setSearchKey] = useState("");
+  const [order, setOrder] = useState({
+    taskOrder: "",
+    deadlineOrder: "",
+  });
+
+  const handleOrder = (orderSelected) => {
+    const newOrder = { ...order };
+
+    // TaskOrder option is selected
+    if (orderSelected.taskOrder !== undefined) {
+      newOrder.taskOrder =
+        order.taskOrder === orderSelected.taskOrder
+          ? ""
+          : orderSelected.taskOrder;
+    }
+    // DeadlineOrder option is selected
+    else {
+      newOrder.deadlineOrder =
+        order.deadlineOrder === orderSelected.deadlineOrder
+          ? ""
+          : orderSelected.deadlineOrder;
+    }
+
+    setOrder(newOrder);
+    setTasks(getHandledTasks(searchKey, newOrder));
+  };
+
+  const handleSearch = (value) => {
+    setSearchKey(value);
+    setTasks(getHandledTasks(value, order));
   };
 
   const handleStateChange = (task) => {
@@ -31,7 +52,12 @@ function Home() {
     <div className="page-container">
       <div className="page-content">
         <Header />
-        <Control onSearchChange={handleSearch} />
+        <Control
+          onSearchChange={handleSearch}
+          onOrderChange={handleOrder}
+          searchKey={searchKey}
+          order={order}
+        />
         <Table taskList={tasks} onStateChange={handleStateChange} />
       </div>
     </div>

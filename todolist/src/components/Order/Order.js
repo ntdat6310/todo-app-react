@@ -1,6 +1,13 @@
 import React from "react";
 
-export default function Order() {
+export default function Order(props) {
+  const style = {
+    cursor: "pointer",
+  };
+  const onItemClicked = (orderSelected) => {
+    props.onOrderChange(orderSelected);
+  };
+
   return (
     <div className="btn-group me-2">
       <button
@@ -13,26 +20,54 @@ export default function Order() {
         Order by
       </button>
       <ul className="dropdown-menu">
-        <li>
-          <a className="dropdown-item" href="#">
-            <i className="fa-thin fa-arrow-up" /> Task
-          </a>
+        <li
+          className={`dropdown-item ${
+            props.order.taskOrder === "asc" ? "text-danger" : ""
+          }`}
+          style={style}
+          onClick={() => {
+            onItemClicked({ taskOrder: "asc" });
+          }}
+        >
+          <i className="fa-thin fa-arrow-up" /> Task
         </li>
-        <li>
-          <a className="dropdown-item" href="#">
-            <i className="fa-thin fa-arrow-down" /> Task
-          </a>
+
+        <li
+          className={`dropdown-item ${
+            props.order.taskOrder === "desc" ? "text-danger" : ""
+          }`}
+          style={style}
+          onClick={() => {
+            onItemClicked({ taskOrder: "desc" });
+          }}
+        >
+          <i className="fa-thin fa-arrow-down" /> Task
         </li>
+
         <hr />
-        <li>
-          <a className="dropdown-item" href="#">
-            <i className="fa-thin fa-arrow-up" /> Deadline
-          </a>
+
+        <li
+          className={`dropdown-item ${
+            props.order.deadlineOrder === "asc" ? "text-danger" : ""
+          }`}
+          style={style}
+          onClick={() => {
+            onItemClicked({ deadlineOrder: "asc" });
+          }}
+        >
+          <i className="fa-thin fa-arrow-up" /> Deadline
         </li>
-        <li>
-          <a className="dropdown-item" href="#">
-            <i className="fa-thin fa-arrow-down" /> Deadline
-          </a>
+
+        <li
+          className={`dropdown-item ${
+            props.order.deadlineOrder === "desc" ? "text-danger" : ""
+          }`}
+          style={style}
+          onClick={() => {
+            onItemClicked({ deadlineOrder: "desc" });
+          }}
+        >
+          <i className="fa-thin fa-arrow-down" /> Deadline
         </li>
       </ul>
     </div>
