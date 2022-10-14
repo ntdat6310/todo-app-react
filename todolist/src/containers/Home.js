@@ -48,6 +48,11 @@ function Home() {
     setTasks(newTasks);
   };
 
+  const handleSubmitAdd = (taskSubmit) => {
+    console.log(taskSubmit);
+    setTasks([...tasks, taskSubmit]);
+  };
+
   return (
     <div className="page-container">
       <div className="page-content">
@@ -57,6 +62,7 @@ function Home() {
           onOrderChange={handleOrder}
           searchKey={searchKey}
           order={order}
+          onSubmitAdd={handleSubmitAdd}
         />
         <Table taskList={tasks} onStateChange={handleStateChange} />
       </div>

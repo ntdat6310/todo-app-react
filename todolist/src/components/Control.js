@@ -28,7 +28,7 @@ export default function Control(props) {
           <Filter />
         </div>
         <div className="col-3">
-          <AddTask />
+          <AddTask onSubmitAdd={props.onSubmitAdd} />
         </div>
       </div>
     </div>

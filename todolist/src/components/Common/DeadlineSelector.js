@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -10,6 +10,7 @@ export default function DeadlineSelector(props) {
   });
   const [isOpen, setIsOpen] = useState(false);
 
+
   const handleClick = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
@@ -18,6 +19,7 @@ export default function DeadlineSelector(props) {
   const handleChange = (e) => {
     setIsOpen(!isOpen);
     setStartDate(e);
+    props.onDeadlineChange(e);
   };
 
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import ModalAdd from "./ModalAdd";
 import { useState } from "react";
 
-export default function AddTask() {
+export default function AddTask(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   function openModal() {
     setIsModalOpen(true);
@@ -21,7 +21,11 @@ export default function AddTask() {
       >
         <i className="fa fa-plus-circle" aria-hidden={true} /> Add Task
       </button>
-      <ModalAdd isOpen={isModalOpen} closeModal={closeModal} />
+      <ModalAdd
+        isOpen={isModalOpen}
+        closeModal={closeModal}
+        onSubmitAdd={props.onSubmitAdd}
+      />
     </>
   );
 }

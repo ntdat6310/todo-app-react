@@ -5,15 +5,14 @@ import { useState } from "react";
 // 1 - Medium
 // 2 - High
 export default function LevelSelector(props) {
-  const [level, setLevel] = useState(() => {
-    return props.level ? props.level : 0;
-  });
+  const level = props.level ? props.level : 0;
+
   const styleItem = {
     cursor: "pointer",
   };
 
   const handleClick = (value) => {
-    setLevel(value);
+    props.onLevelChange(value);
   };
 
   const renderLevel = () => {
@@ -38,9 +37,33 @@ export default function LevelSelector(props) {
           </span>
         </button>
         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li className="dropdown-item" style={styleItem} onClick={()=>{handleClick(0)}}>Small</li>
-          <li className="dropdown-item" style={styleItem} onClick={()=>{handleClick(1)}}>Medium</li>
-          <li className="dropdown-item" style={styleItem} onClick={()=>{handleClick(2)}}>High</li>
+          <li
+            className="dropdown-item"
+            style={styleItem}
+            onClick={() => {
+              handleClick(0);
+            }}
+          >
+            Small
+          </li>
+          <li
+            className="dropdown-item"
+            style={styleItem}
+            onClick={() => {
+              handleClick(1);
+            }}
+          >
+            Medium
+          </li>
+          <li
+            className="dropdown-item"
+            style={styleItem}
+            onClick={() => {
+              handleClick(2);
+            }}
+          >
+            High
+          </li>
         </ul>
       </div>
     </div>

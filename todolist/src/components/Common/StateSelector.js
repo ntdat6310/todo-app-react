@@ -6,15 +6,14 @@ import { useState } from "react";
 // 1 - Doing
 // 2 - Done
 export default function StateSelector(props) {
-  const [state, setState] = useState(() => {
-    return props.state ? props.state : 0;
-  });
+  const state = props.state ? props.state : 0;
+
   const styleItem = {
     cursor: "pointer",
   };
 
-  const handleClick = (value) => {
-    setState(value);
+  const handleClick = (newState) => {
+    props.onStateChange(newState);
   };
 
   const renderState = () => {
