@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { getDaysLeft, getDeadlineString } from "../utils/date";
 import StateSelectorOutline from "./Common/StateSelectorOutline";
+import Edit from "../components/Edit/Edit";
+import Delete from "../components/Delete/Delete";
 
 export default function Item(props) {
   const task = props.task;
@@ -55,12 +57,8 @@ export default function Item(props) {
       </td>
       <td>{renderLevel(task.level)}</td>
       <td>
-        <button type="button" className="btn btn-outline-secondary me-2">
-          <i className="fa fa-pencil-square-o" />
-        </button>
-        <button type="button" className="btn btn-outline-danger">
-          <i className="fa-trash-o" />
-        </button>
+        <Edit />
+        <Delete taskId={task.id} onDeleteSubmit={props.onDeleteSubmit} />
       </td>
     </tr>
   );

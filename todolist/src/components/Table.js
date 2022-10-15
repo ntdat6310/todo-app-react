@@ -9,6 +9,7 @@ export default function Table(props) {
           key={index}
           task={item}
           onStateChange={props.onStateChange}
+          onDeleteSubmit={props.onDeleteSubmit}
         />
       );
     });

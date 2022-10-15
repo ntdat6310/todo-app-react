@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import DeadlineSelector from "./Common/DeadlineSelector";
 import LevelSelector from "./Common/LevelSelector";
@@ -7,7 +7,6 @@ const { v4: uuidv4 } = require("uuid");
 
 export default function ModalAdd(props) {
   Modal.setAppElement(document.getElementById("root"));
-  const { isOpen, closeModal } = props;
   const defaultNewTask = {
     id: uuidv4(),
     task: "",
@@ -38,13 +37,13 @@ export default function ModalAdd(props) {
   const onSubmit = () => {
     props.onSubmitAdd(newTask);
     setNewTask(defaultNewTask);
-    closeModal();
+    props.closeModal();
   };
 
   return (
     <Modal
-      isOpen={isOpen}
-      onRequestClose={closeModal}
+      isOpen={props.isOpen}
+      onRequestClose={props.closeModal}
       contentLabel="Add Task"
       style={{
         overlay: {
@@ -57,7 +56,7 @@ export default function ModalAdd(props) {
       {/* Close Modal */}
       <div
         className="modalAdd__close"
-        onClick={closeModal}
+        onClick={props.closeModal}
         style={{
           float: "right",
           fontSize: "20px",

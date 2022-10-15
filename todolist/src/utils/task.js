@@ -31,7 +31,6 @@ const getSearchedTasks = (tasks, searchKey) => {
 const getOrderedTasks = (tasks, order) => {
   if (order === undefined) return tasks;
 
-  console.log("order", order);
   // Deadline order
   if (order?.deadlineOrder === "asc") {
     tasks.sort(function compare(a, b) {
@@ -45,7 +44,6 @@ const getOrderedTasks = (tasks, order) => {
 
   // Task order
 
-  console.log("tasks", tasks);
   return tasks;
 };
 
@@ -53,4 +51,16 @@ const getFilterededTasks = (tasks, filter) => {
   if (filter === undefined) return tasks;
 };
 
-export { getHandledTasks };
+// Get Task List after deleting specific task
+const deleteTask = (tasks, taskId) => {
+  let idxDelete = -1;
+  tasks.forEach((element, idx) => {
+    if (element.id === taskId) {
+      idxDelete = idx;
+    }
+  });
+  tasks.splice(idxDelete, 1);
+  return tasks;
+};
+
+export { getHandledTasks, deleteTask };

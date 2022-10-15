@@ -4,7 +4,7 @@ import Table from "../components/Table";
 import taskList from "../assets/mock/mockData";
 import "../styles/home.css";
 import { useState } from "react";
-import { getHandledTasks } from "../utils/task";
+import { deleteTask, getHandledTasks } from "../utils/task";
 
 function Home() {
   const [tasks, setTasks] = useState(taskList);
@@ -53,6 +53,12 @@ function Home() {
     setTasks([...tasks, taskSubmit]);
   };
 
+  const handleDelete = (taskId) => {
+    setTasks((prevTasks) => {
+      return deleteTask([...prevTasks], taskId);
+    });
+  };
+
   return (
     <div className="page-container">
       <div className="page-content">
@@ -64,7 +70,11 @@ function Home() {
           order={order}
           onSubmitAdd={handleSubmitAdd}
         />
-        <Table taskList={tasks} onStateChange={handleStateChange} />
+        <Table
+          taskList={tasks}
+          onStateChange={handleStateChange}
+          onDeleteSubmit={handleDelete}
+        />
       </div>
     </div>
   );
