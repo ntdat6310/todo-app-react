@@ -63,4 +63,36 @@ const deleteTask = (tasks, taskId) => {
   return tasks;
 };
 
-export { getHandledTasks, deleteTask };
+const editTask = (tasks, editedTask) => {
+  let edtIdx = -1;
+  tasks.forEach((task, idx) => {
+    if (task.id === editedTask.id) {
+      edtIdx = idx;
+      // break;
+      // Can not break inside forEach...
+      // Q: Why? => Research for explanation
+      // Using return instead of break
+      return;
+    }
+  });
+
+  let isTaskChanged = false;
+
+  if (edtIdx !== -1){
+    isTaskChanged = checkIsTaskChanged(tasks[edtIdx], editedTask);
+    if (isTaskChanged) tasks[edtIdx] = editedTask;
+  }
+
+  return [tasks, isTaskChanged];
+};
+
+const checkIsTaskChanged = (task, editedTask) => {
+  for (const property in task) {
+    if (task[property] !== editedTask[property]) {
+      return true;
+    }
+  }
+  return false;
+};
+
+export { getHandledTasks, deleteTask, editTask };

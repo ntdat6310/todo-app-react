@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { getDaysLeft, getDeadlineString } from "../utils/date";
 import StateSelectorOutline from "./Common/StateSelectorOutline";
 import Edit from "../components/Edit/Edit";
@@ -57,7 +56,11 @@ export default function Item(props) {
       </td>
       <td>{renderLevel(task.level)}</td>
       <td>
-        <Edit />
+        <Edit
+          onEditSubmit={props.onEditSubmit}
+          task={task}
+          stateSelected={task.state}
+        />
         <Delete taskId={task.id} onDeleteSubmit={props.onDeleteSubmit} />
       </td>
     </tr>

@@ -10,6 +10,7 @@ export default function Table(props) {
           task={item}
           onStateChange={props.onStateChange}
           onDeleteSubmit={props.onDeleteSubmit}
+          onEditSubmit={props.onEditSubmit}
         />
       );
     });

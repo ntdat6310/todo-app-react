@@ -4,7 +4,7 @@ import Table from "../components/Table";
 import taskList from "../assets/mock/mockData";
 import "../styles/home.css";
 import { useState } from "react";
-import { deleteTask, getHandledTasks } from "../utils/task";
+import { deleteTask, getHandledTasks, editTask } from "../utils/task";
 
 function Home() {
   const [tasks, setTasks] = useState(taskList);
@@ -59,6 +59,14 @@ function Home() {
     });
   };
 
+  console.log("Re-Render");
+  const handleEdit = (editedTask) => {
+    setTasks((prevTasks) => {
+      const [newTasks, isTaskChanged] = editTask([...prevTasks], editedTask);
+      return isTaskChanged ? newTasks : prevTasks;
+    });
+  };
+
   return (
     <div className="page-container">
       <div className="page-content">
@@ -74,6 +82,7 @@ function Home() {
           taskList={tasks}
           onStateChange={handleStateChange}
           onDeleteSubmit={handleDelete}
+          onEditSubmit={handleEdit}
         />
       </div>
     </div>
