@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Table from "../components/Table";
 import taskList from "../assets/mock/mockData";
 import "../styles/home.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { deleteTask, getHandledTasks, editTask } from "../utils/task";
 
 function Home() {
@@ -12,6 +12,15 @@ function Home() {
   const [order, setOrder] = useState({
     taskOrder: "",
     deadlineOrder: "",
+  });
+
+  const [filter, setFilter] = useState({
+    level: [],
+    state: [],
+    // deadline:{
+    //   start:
+    //   end:
+    // }
   });
 
   const handleOrder = (orderSelected) => {
@@ -59,7 +68,6 @@ function Home() {
     });
   };
 
-  console.log("Re-Render");
   const handleEdit = (editedTask) => {
     setTasks((prevTasks) => {
       const [newTasks, isTaskChanged] = editTask([...prevTasks], editedTask);
@@ -67,6 +75,11 @@ function Home() {
     });
   };
 
+  const handleFilter = (newFilter) => {
+    setFilter(newFilter);
+
+    // Do something...
+  };
   return (
     <div className="page-container">
       <div className="page-content">
@@ -77,6 +90,8 @@ function Home() {
           searchKey={searchKey}
           order={order}
           onSubmitAdd={handleSubmitAdd}
+          onFilterSubmit={handleFilter}
+          filter={filter}
         />
         <Table
           taskList={tasks}

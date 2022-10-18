@@ -23,7 +23,7 @@ export default function ConfirmDelete(props) {
         },
         content: {
           borderRadius: "20px",
-          inset: "195px 200px",
+          inset: "180px 200px",
           fontSize: "20px",
         },
       }}

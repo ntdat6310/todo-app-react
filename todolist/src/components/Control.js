@@ -25,7 +25,7 @@ export default function Control(props) {
         </div>
         <div className="col-3">
           <Order onOrderChange={props.onOrderChange} order={props.order} />
-          <Filter />
+          <Filter filter={props.filter} onFilterSubmit={props.onFilterSubmit} />
         </div>
         <div className="col-3">
           <AddTask onSubmitAdd={props.onSubmitAdd} />
