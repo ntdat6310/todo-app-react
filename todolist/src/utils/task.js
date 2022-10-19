@@ -1,14 +1,11 @@
-import taskList from "../assets/mock/mockData";
-
 const getHandledTasks = (
+  tasks = [],
   searchKey = "",
   order = undefined,
   filter = undefined
 ) => {
   // Query TaskList from DB
   //   ...
-  const tasks = [...taskList];
-
   let taskResults;
   taskResults = getSearchedTasks(tasks, searchKey);
   taskResults = getFilterededTasks(taskResults, filter);
@@ -49,6 +46,8 @@ const getOrderedTasks = (tasks, order) => {
 
 const getFilterededTasks = (tasks, filter) => {
   if (filter === undefined) return tasks;
+
+  return tasks;
 };
 
 // Get Task List after deleting specific task
@@ -78,7 +77,7 @@ const editTask = (tasks, editedTask) => {
 
   let isTaskChanged = false;
 
-  if (edtIdx !== -1){
+  if (edtIdx !== -1) {
     isTaskChanged = checkIsTaskChanged(tasks[edtIdx], editedTask);
     if (isTaskChanged) tasks[edtIdx] = editedTask;
   }

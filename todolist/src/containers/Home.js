@@ -1,14 +1,16 @@
 import Control from "../components/Control";
 import Header from "../components/Header";
 import Table from "../components/Table";
-import taskList from "../assets/mock/mockData";
 import "../styles/home.css";
 import { useRef, useState } from "react";
+import taskList from "../assets/mock/mockData";
 import { deleteTask, getHandledTasks, editTask } from "../utils/task";
 
 function Home() {
-  const [tasks, setTasks] = useState(taskList);
+  const taskContainer = useRef(taskList);
+
   const [searchKey, setSearchKey] = useState("");
+
   const [order, setOrder] = useState({
     taskOrder: "",
     deadlineOrder: "",
@@ -17,10 +19,10 @@ function Home() {
   const [filter, setFilter] = useState({
     level: [],
     state: [],
-    // deadline:{
-    //   start:
-    //   end:
-    // }
+  });
+
+  const [tasks, setTasks] = useState(() => {
+    return getHandledTasks([...taskContainer.current], searchKey, order, filter);
   });
 
   const handleOrder = (orderSelected) => {
@@ -42,33 +44,58 @@ function Home() {
     }
 
     setOrder(newOrder);
-    setTasks(getHandledTasks(searchKey, newOrder));
-  };
-
-  const handleSearch = (value) => {
-    setSearchKey(value);
-    setTasks(getHandledTasks(value, order));
-  };
-
-  const handleStateChange = (task) => {
-    const newTasks = tasks.map((item) => {
-      return item.id === task.id ? { ...item, state: task.state } : item;
-    });
+    const newTasks = getHandledTasks(
+      [...taskContainer.current],
+      searchKey,
+      newOrder,
+      filter
+    );
+    console.log("newTasks", newTasks);
     setTasks(newTasks);
   };
 
+  const handleSearch = (searchInput) => {
+    setSearchKey(searchInput);
+    setTasks(
+      getHandledTasks(taskContainer.current, searchInput, order, filter)
+    );
+  };
+
+  const handleStateChange = (task) => {
+    taskContainer.current = taskContainer.current.map((item) => {
+      return item.id === task.id ? { ...item, state: task.state } : item;
+    });
+    setTasks(
+      getHandledTasks([...taskContainer.current], searchKey, order, filter)
+    );
+  };
+
   const handleSubmitAdd = (taskSubmit) => {
-    console.log(taskSubmit);
-    setTasks([...tasks, taskSubmit]);
+    taskContainer.current = [...taskContainer.current, taskSubmit];
+    setTasks(
+      getHandledTasks(
+        [...taskContainer.current],
+        searchKey,
+        order,
+        filter
+      )
+    );
   };
 
   const handleDelete = (taskId) => {
     setTasks((prevTasks) => {
+      taskContainer.current = deleteTask([...taskContainer.current], taskId);
       return deleteTask([...prevTasks], taskId);
     });
   };
 
   const handleEdit = (editedTask) => {
+    const [newTasks, isTaskChanged] = editTask(
+      [...taskContainer.current],
+      editedTask
+    );
+    taskContainer.current = isTaskChanged ? newTasks : taskContainer.current;
+
     setTasks((prevTasks) => {
       const [newTasks, isTaskChanged] = editTask([...prevTasks], editedTask);
       return isTaskChanged ? newTasks : prevTasks;
@@ -77,9 +104,11 @@ function Home() {
 
   const handleFilter = (newFilter) => {
     setFilter(newFilter);
-
-    // Do something...
+    setTasks(
+      getHandledTasks([...taskContainer.current], searchKey, order, newFilter)
+    );
   };
+
   return (
     <div className="page-container">
       <div className="page-content">
