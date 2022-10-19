@@ -45,9 +45,20 @@ const getOrderedTasks = (tasks, order) => {
 };
 
 const getFilterededTasks = (tasks, filter) => {
-  if (filter === undefined) return tasks;
+  if (!Array.isArray(tasks)) return [];
+  if (filter === undefined) return [...tasks];
+  const tasksCopy = [...tasks];
 
-  return tasks;
+  return tasksCopy.filter((task) => {
+    return (
+      filter.level.some((levelElm) => {
+        return levelElm === task.level;
+      }) &&
+      filter.state.some((stateElm) => {
+        return stateElm === task.state;
+      })
+    );
+  });
 };
 
 // Get Task List after deleting specific task

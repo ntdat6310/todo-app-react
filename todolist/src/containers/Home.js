@@ -17,12 +17,17 @@ function Home() {
   });
 
   const [filter, setFilter] = useState({
-    level: [],
-    state: [],
+    level: [0, 1, 2], // [0,1,2]
+    state: [0, 1, 2], // [0,1,2]
   });
 
   const [tasks, setTasks] = useState(() => {
-    return getHandledTasks([...taskContainer.current], searchKey, order, filter);
+    return getHandledTasks(
+      [...taskContainer.current],
+      searchKey,
+      order,
+      filter
+    );
   });
 
   const handleOrder = (orderSelected) => {
@@ -73,12 +78,7 @@ function Home() {
   const handleSubmitAdd = (taskSubmit) => {
     taskContainer.current = [...taskContainer.current, taskSubmit];
     setTasks(
-      getHandledTasks(
-        [...taskContainer.current],
-        searchKey,
-        order,
-        filter
-      )
+      getHandledTasks([...taskContainer.current], searchKey, order, filter)
     );
   };
 
